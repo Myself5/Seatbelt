@@ -31,7 +31,7 @@ function Fwv(entity)
   hr = hr * 0.0174533
   return { x = math.cos(hr) * 2.0, y = math.sin(hr) * 2.0 }
 end
- 
+
 Citizen.CreateThread(function()
 	while true do
 	Citizen.Wait(0)
@@ -69,7 +69,8 @@ Citizen.CreateThread(function()
       velBuffer[1] = GetEntityVelocity(car)
         
       if IsControlJustReleased(0, Config.Control) and GetLastInputMethod(0) then
-          SeatbeltON = not SeatbeltON 
+          SeatbeltON = not SeatbeltON
+          SendNUIMessage({seatbelt = SeatbeltON})
           if SeatbeltON then
           Citizen.Wait(1)
 
@@ -103,6 +104,7 @@ Citizen.CreateThread(function()
     elseif InVehicle then
       InVehicle = false
       SeatbeltON = false
+      SendNUIMessage({seatbelt = SeatbeltON})
       speedBuffer[1], speedBuffer[2] = 0.0, 0.0
           if isUiOpen == true and not IsPlayerDead(PlayerId()) then
             if Config.Blinker then
